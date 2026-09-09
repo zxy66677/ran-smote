@@ -344,3 +344,24 @@ class RANSMOTE:
 
     def sample(self, X, y):
         return self.fit_resample(X, y)
+        
+if __name__ == "__main__":
+    from collections import Counter
+    from time import perf_counter
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(
+        n_samples=200,
+        n_features=4,
+        n_informative=4,
+        n_redundant=0,
+        weights=[0.8, 0.2],
+        class_sep=1.5,
+        flip_y=0,
+        random_state=107,
+    )
+
+    sampler = RANSMOTE(random_state=107)
+
+    start = perf_counter()
+    X_resampled, y_resampled = sampler.fit_resample(X, y)
